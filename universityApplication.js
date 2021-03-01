@@ -43,14 +43,14 @@ app.post('/getUniversityQuestion', (req, res) => {
 
 				return res.json({
 					fulfillmentText: dataToSend,
-					source: 'getmovie'
+					source: 'UniversityQuestion'
 				})
 			})
 		},
 		error => {
 			return res.json({
 				fulfillmentText: 'Could not get results at this time',
-				source: 'getmovie'
+				source: 'UniversityQuestion'
 			})
 		}
 	)
