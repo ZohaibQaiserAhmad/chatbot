@@ -3,7 +3,7 @@ const {MongoClient} = require('mongodb');
 const express = require('express')
 // will use this later to send requests
 const http = require('http')
-
+require('dotenv').config()
 
 const app = express()
 const port = process.env.PORT || 3000
