@@ -34,7 +34,7 @@ app.post('/getUniversityQuestion', (req, res) => {
 			})
 			responseFromAPI.on('end', () => {
 				const questions = JSON.parse(completeResponse)
-
+				console.log(questions)
 				let dataToSend = questionToSearch
 				dataToSend = `${questions.question} was released in the year ${questions.answer}. It is directed by ${
 					questions.question
