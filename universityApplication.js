@@ -15,9 +15,6 @@ app.get('/', (req, res) => {
 	res.status(200).send('Server is working.')
 })
 
-app.listen(port, () => {
-	console.log(`Server is running at http://localhost:${port}`)
-})
 
 app.post('/getUniversityQuestion', (req, res) => {
 	const questionToSearch =
@@ -59,3 +56,6 @@ app.post('/getUniversityQuestion', (req, res) => {
 	)
 })
 
+app.listen(port, () => {
+	console.log(`Server is running at http://localhost:${port}`)
+})
