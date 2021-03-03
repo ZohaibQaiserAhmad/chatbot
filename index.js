@@ -8,7 +8,8 @@ config       = require('./config'),
 server       = express(),
 UniversityQuestion = require('../API/Models/UniversityQuestion');
 var universityController = require('../API/Controllers/universityQController');
-const dotenv = require("dotenv")
+const dotenv = require("dotenv");
+const {WebhookClient} = require('dialogflow-fulfillment');
 dotenv.config()
 
 //connect
@@ -72,6 +73,19 @@ async function universitySearch(req,res){
 }
 
 
+const dialogflowFulfillment = (request, response) => {
+    const agent = new WebhookClient({request, response})
+
+    function sayHello(agent){
+        agent.add("Hello, this to test heroku")
+    }
+
+    let intentMap = new Map();
+    intentMap.set("Default Welcome Intent", sayHello)
+    agent.handleRequest(intentMap)
+
+}
+
 //Here we are configuring express to use body-parser as middle-ware.
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -84,7 +98,10 @@ app.get('/',function(req,res){
 app.post('/', function(req,res){
     universitySearch(req,res);
 });
-  
+
+app.post('/dialogflow-fulfillment', (request, response) => {
+    dialogflowFulfillment(request, response)
+})
 
 app.listen((process.env.PORT || 3000), function () {
     console.log("Server is up and listening on port");
