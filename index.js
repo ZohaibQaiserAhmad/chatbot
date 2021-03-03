@@ -96,11 +96,11 @@ app.get('/',function(req,res){
   });
 
 app.post('/', function(req,res){
-    universitySearch(req,res);
+    dialogflowFulfillment(request, response);
 });
 
 app.post('/dialogflow-fulfillment', (request, response) => {
-    dialogflowFulfillment(request, response)
+    dialogflowFulfillment(request, response);
 })
 
 app.listen((process.env.PORT || 3000), function () {
