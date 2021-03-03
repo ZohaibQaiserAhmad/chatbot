@@ -29,7 +29,7 @@ async function universitySearch(req,res){
         await client.connect();
       
         let answer = "At" + req.body.UniversityId + "The answer is :" + req.body.answer;
-    console.log(answer);
+        console.log(answer);
     
         let result = await client.db("Store").collection("University")
         .findOne({question:questionToSearch},function(err,questionExists)
