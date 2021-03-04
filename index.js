@@ -53,7 +53,7 @@ async function universitySearch(req,res){
         if (err)
         {
           console.log(err);
-          res.send({
+          return res.send({
             "fulfillmentMessages": [
               {
                 "text": {
@@ -67,7 +67,7 @@ async function universitySearch(req,res){
         }
         if (questionExists)
         {
-            res.send({
+            return res.send({
                 "fulfillmentMessages": [
                   {
                     "text": {
@@ -80,7 +80,7 @@ async function universitySearch(req,res){
               });
         }
         else {
-          res.send({
+            return res.send({
                 "fulfillmentMessages": [
                   {
                     "text": {
