@@ -11,7 +11,10 @@ const {WebhookClient} = require('dialogflow-fulfillment');
 const dialogflow = require('dialogflow');
 dotenv.config()
 
-
+//connect
+const uri = "mongodb+srv://ebizdom:VL93iD4V26A3XUJC@cluster0.th7ff.mongodb.net/store?retryWrites=true&w=majority";
+const {MongoClient} = require('mongodb');
+const client = new MongoClient(uri);
 
 
 
@@ -39,17 +42,7 @@ async function universitySearch(req,res){
      */
 
     let questionToSearch = req.body.queryResult.queryText;
-
-    //connect
-    const uri = "mongodb+srv://ebizdom:VL93iD4V26A3XUJC@cluster0.th7ff.mongodb.net/store?retryWrites=true&w=majority";
-    const {MongoClient} = require('mongodb');
-    const client = new MongoClient(uri);
-    
-
-    client.connect(() => {
-        
-    
-        let result = client.db("Store").collection("University")
+    client.db("Store").collection("University")
         .findOne({question:questionToSearch},function(err,questionExists)
       {
         if (err)
@@ -96,11 +89,7 @@ async function universitySearch(req,res){
         }
       });
 
-
-        // Make the appropriate DB calls
-     
-
-    });
+    
 }
 
 
