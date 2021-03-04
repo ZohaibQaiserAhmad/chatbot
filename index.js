@@ -100,7 +100,6 @@ async function universitySearch(req,res){
 
     }).catch((e) => {
         console.error(e);
-        next(err);
     })
 }
 
