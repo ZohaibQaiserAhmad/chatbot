@@ -11,10 +11,6 @@ const {WebhookClient} = require('dialogflow-fulfillment');
 const dialogflow = require('dialogflow');
 dotenv.config()
 
-//connect
-const uri = "mongodb+srv://ebizdom:VL93iD4V26A3XUJC@cluster0.th7ff.mongodb.net/store?retryWrites=true&w=majority";
-const {MongoClient} = require('mongodb');
-const client = new MongoClient(uri);
 
 
 const sessionIds = new Map();
@@ -109,8 +105,15 @@ app.post('/', function(req,res){
 
     async function start(){
         try {
+
+            
+            //connect
+            const uri = "mongodb+srv://ebizdom:VL93iD4V26A3XUJC@cluster0.th7ff.mongodb.net/store?retryWrites=true&w=majority";
+            const {MongoClient} = require('mongodb');
+            const client = new MongoClient(uri);
+            
             // Connect to the MongoDB cluster
-            await client.connect(uri);
+            await client.connect();
 
             // Make the appropriate DB calls
             await  universitySearch(client,req,res);
