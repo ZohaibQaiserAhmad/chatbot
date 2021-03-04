@@ -117,21 +117,16 @@ app.get('/',function(req,res){
 
 app.post('/', function(req,res){
     res.send({
-        "payload": {
-          "google": {
-            "expectUserResponse": true,
-            "richResponse": {
-              "items": [
-                {
-                  "simpleResponse": {
-                    "textToSpeech": "this is a Google Assistant response"
-                  }
-                }
+        "fulfillmentMessages": [
+          {
+            "text": {
+              "text": [
+                "Text response from webhook"
               ]
             }
           }
-        }
-      }
+        ]
+      });
 });
 
 app.post('/dialogflow-fulfillment', (request, response) => {
