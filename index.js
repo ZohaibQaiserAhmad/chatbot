@@ -98,9 +98,7 @@ async function universitySearch(req,res){
         // Make the appropriate DB calls
      
 
-    }).catch((e) => {
-        console.error(e);
-    })
+    });
 }
 
 
