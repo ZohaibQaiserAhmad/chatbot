@@ -106,22 +106,24 @@ app.get('/',function(req,res){
   });
 
 app.post('/', function(req,res){
-    try {
-        // Connect to the MongoDB cluster
-        async function start(){
+
+    async function start(){
+        try {
+            // Connect to the MongoDB cluster
             await client.connect();
 
             // Make the appropriate DB calls
             await  universitySearch(client,req,res);
-        }
-        start();
 
-    } catch (e) {
-        console.error(e);
-    } finally {
-        await client.close();
+        } catch (e) {
+            console.error(e);
+        } finally {
+            await client.close();
+        }
+        universitySearch(req,res);
     }
-    universitySearch(req,res);
+
+    start();
 });
 
 
