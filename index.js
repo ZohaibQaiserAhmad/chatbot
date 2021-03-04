@@ -41,13 +41,10 @@ async function universitySearch(req,res){
      * See https://docs.mongodb.com/ecosystem/drivers/node/ for more details
      */
 
-    let questionToSearch = req;
-    console.log(req.body.queryResult.queryText);
-    exit(0);
+    let questionToSearch = req.body.queryResult.queryText;
+  
 
     client.connect(() => {
-      
-        let answer = "At" + req.body.UniversityId + "The answer is :" + req.body.answer;
         
     
         let result = client.db("Store").collection("University")
