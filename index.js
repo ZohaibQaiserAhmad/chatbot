@@ -16,7 +16,9 @@ const uri = "mongodb+srv://ebizdom:VL93iD4V26A3XUJC@cluster0.th7ff.mongodb.net/s
 const {MongoClient} = require('mongodb');
 const client = new MongoClient(uri);
 
-
+MongoClient.connect(uri, function(err, db) {
+  db.close();
+});
 
 const sessionIds = new Map();
 
