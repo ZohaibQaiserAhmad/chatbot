@@ -113,12 +113,20 @@ app.use(express.static(__dirname + '/public'));
  
 app.get('/',function(req,res){
     console.dir(req.body);
-    res.send('We are happy to see you using Chat Bot Webhook');
   });
 
 app.post('/', function(req,res){
-    res.send({"payload": { "slack": { "text": "Slack Test" } }, "fulfillmentText": "Test" });
-    //dialogflowFulfillment(request, response);
+    res.send({
+        "fulfillmentMessages": [
+          {
+            "text": {
+              "text": [
+                "Text response from webhook"
+              ]
+            }
+          }
+        ]
+      });
 });
 
 app.post('/dialogflow-fulfillment', (request, response) => {
