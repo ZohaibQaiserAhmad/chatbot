@@ -42,9 +42,7 @@ async function universitySearch(req,res){
 
     let questionToSearch = req.responseID.queryResult;
 
-    try {
-        // Connect to the MongoDB cluster
-        await client.connect();
+    client.connect(() => {
       
         let answer = "At" + req.body.UniversityId + "The answer is :" + req.body.answer;
         
@@ -100,12 +98,10 @@ async function universitySearch(req,res){
         // Make the appropriate DB calls
      
 
-    } catch (e) {
+    }).catch((e) => {
         console.error(e);
         next(err);
-    } finally {
-        await client.close();
-    }
+    })
 }
 
 
