@@ -13,7 +13,7 @@ const {WebhookClient} = require('dialogflow-fulfillment');
 dotenv.config()
 
 //connect
-const uri = config.dbUrl;
+const uri = config.SERVER_URL;
 const {MongoClient} = require('mongodb');
 const client = new MongoClient(uri);
 
