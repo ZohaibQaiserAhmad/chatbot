@@ -110,7 +110,7 @@ app.post('/', function(req,res){
     async function start(){
         try {
             // Connect to the MongoDB cluster
-            await client.connect();
+            await client.connect(uri);
 
             // Make the appropriate DB calls
             await  universitySearch(client,req,res);
