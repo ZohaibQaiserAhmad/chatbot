@@ -8,6 +8,7 @@ config       = require('./config'),
 server       = express(),
 dotenv = require("dotenv");
 const {WebhookClient} = require('dialogflow-fulfillment');
+const dialogflow = require('dialogflow');
 dotenv.config()
 
 //connect
