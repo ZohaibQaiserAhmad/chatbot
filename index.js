@@ -40,14 +40,14 @@ async function universitySearch(req,res){
      * See https://docs.mongodb.com/ecosystem/drivers/node/ for more details
      */
 
-    let questionToSearch = req.body.question;
+    let questionToSearch = req.queryResult.queryText;
 
     try {
         // Connect to the MongoDB cluster
         await client.connect();
       
         let answer = "At" + req.body.UniversityId + "The answer is :" + req.body.answer;
-        console.log(answer);
+        
     
         let result = await client.db("Store").collection("University")
         .findOne({question:questionToSearch},function(err,questionExists)
@@ -55,26 +55,44 @@ async function universitySearch(req,res){
         if (err)
         {
           console.log(err);
-          return res.json({
-              speech: 'Something went wrong!',
-              displayText: 'Something went wrong!',
-              source: 'UniversityQuestion'
+          res.send({
+            "fulfillmentMessages": [
+              {
+                "text": {
+                  "text": [
+                    "Issue with Bot..."
+                  ]
+                }
+              }
+            ]
           });
         }
         if (questionExists)
         {
-          return res.json({
-                speech: questionExists.answer,
-                displayText: "At " + questionExists.UniversityId + " The answer is : " + questionExists.answer,
-                source: 'UniversityQuestion'
-            });
+            res.send({
+                "fulfillmentMessages": [
+                  {
+                    "text": {
+                      "text": [
+                        "At " + questionExists.UniversityId + " The answer is : " + questionExists.answer
+                      ]
+                    }
+                  }
+                ]
+              });
         }
         else {
-          return res.json({
-                speech: 'Currently I am not having information about this question',
-                displayText: 'Currently I am not having information about this question',
-                source: 'UniversityQuestion'
-            });
+          res.send({
+                "fulfillmentMessages": [
+                  {
+                    "text": {
+                      "text": [
+                        "We currently do not have that question in our database...."
+                      ]
+                    }
+                  }
+                ]
+              });
         }
       });
 
@@ -90,18 +108,6 @@ async function universitySearch(req,res){
 }
 
 
-const dialogflowFulfillment = (request, response) => {
-    const agent = new WebhookClient({request, response})
-    console.log("here");
-    function sayHello(agent){
-        agent.add("Hello, this to test heroku")
-    }
-
-    let intentMap = new Map();
-    intentMap.set("Default Welcome Intent", sayHello)
-    agent.handleRequest(intentHandler);
-
-}
 
 //Here we are configuring express to use body-parser as middle-ware.
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -116,22 +122,9 @@ app.get('/',function(req,res){
   });
 
 app.post('/', function(req,res){
-    res.send({
-        "fulfillmentMessages": [
-          {
-            "text": {
-              "text": [
-                "Welcome to University Questionnare Bot"
-              ]
-            }
-          }
-        ]
-      });
+    universitySearch(req,res);
 });
 
-app.post('/dialogflow-fulfillment', (request, response) => {
-    dialogflowFulfillment(request, response);
-})
 
 app.listen((process.env.PORT || 3000), function () {
     console.log("Server is up and listening on port");
