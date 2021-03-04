@@ -108,10 +108,13 @@ app.get('/',function(req,res){
 app.post('/', function(req,res){
     try {
         // Connect to the MongoDB cluster
-        await client.connect();
+        async function start(){
+            await client.connect();
 
-        // Make the appropriate DB calls
-        await  universitySearch(client,req,res);
+            // Make the appropriate DB calls
+            await  universitySearch(client,req,res);
+        }
+        start();
 
     } catch (e) {
         console.error(e);
