@@ -14,6 +14,7 @@ dotenv.config()
 //connect
 const uri = config.SERVER_URL;
 const {MongoClient} = require('mongodb');
+const { exit } = require('process');
 const client = new MongoClient(uri);
 
 
@@ -40,7 +41,9 @@ async function universitySearch(req,res){
      * See https://docs.mongodb.com/ecosystem/drivers/node/ for more details
      */
 
-    let questionToSearch = req.responseID.queryResult;
+    let questionToSearch = req;
+    res.send(req);
+    exit(0);
 
     client.connect(() => {
       
