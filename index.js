@@ -117,7 +117,6 @@ app.get('/',function(req,res){
   });
 
 app.post('/', function(req,res){
-    res.send('We are happy to see you using Chat Bot Webhook');
     dialogflowFulfillment(request, response);
 });
 
