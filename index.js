@@ -118,7 +118,7 @@ app.post('/', function(req,res){
             await client.connect();
     
             // Make the appropriate DB calls
-            await  listDatabases(client);
+            await  universitySearch(client);
     
         } catch (e) {
             console.error(e);
@@ -126,6 +126,7 @@ app.post('/', function(req,res){
             await client.close();
         }
     }
+
     main().catch(console.error);
 
 });
