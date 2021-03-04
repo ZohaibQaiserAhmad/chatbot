@@ -1,4 +1,9 @@
-module.exports =
-{
- dbUrl:"mongodb+srv://ebizdom:VL93iD4V26A3XUJC@cluster0.th7ff.mongodb.net/store?retryWrites=true&w=majority"
-}
+module.exports = {
+
+    GOOGLE_PRIVATE_KEY: process.env.GOOGLE_PRIVATE_KEY,
+    SERVER_URL: process.env.SERVER_URL,
+    GOOGLE_PROJECT_ID: process.env.GOOGLE_PROJECT_ID,
+    DF_LANGUAGE_CODE: process.env.DF_LANGUAGE_CODE,
+    GOOGLE_CLIENT_EMAIL: process.env.GOOGLE_CLIENT_EMAIL,
+
+};

@@ -17,6 +17,22 @@ const uri = config.dbUrl;
 const {MongoClient} = require('mongodb');
 const client = new MongoClient(uri);
 
+const sessionIds = new Map();
+
+
+const credentials = {
+    client_email: config.GOOGLE_CLIENT_EMAIL,
+    private_key: config.GOOGLE_PRIVATE_KEY,
+};
+
+const sessionClient = new dialogflow.SessionsClient(
+	{
+		projectId: config.GOOGLE_PROJECT_ID,
+		credentials
+	}
+);
+
+
 async function universitySearch(req,res){
     /**
      * Connection URI. Update <username>, <password>, and <your-cluster-url> to reflect your cluster.
@@ -89,6 +105,8 @@ const dialogflowFulfillment = (request, response) => {
 //Here we are configuring express to use body-parser as middle-ware.
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+
 
  
 app.get('/',function(req,res){
