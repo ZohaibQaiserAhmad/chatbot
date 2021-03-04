@@ -16,8 +16,6 @@ const uri = "mongodb+srv://ebizdom:VL93iD4V26A3XUJC@cluster0.th7ff.mongodb.net/s
 const {MongoClient} = require('mongodb');
 const client = new MongoClient(uri);
 
-MongoClient.connect(uri, function(err, db) {
-});
 
 const sessionIds = new Map();
 
@@ -36,7 +34,7 @@ const sessionClient = new dialogflow.SessionsClient(
 
 
 
-async function universitySearch(req,res){
+async function universitySearch(client,req,res){
     /**
      * Connection URI. Update <username>, <password>, and <your-cluster-url> to reflect your cluster.
      * See https://docs.mongodb.com/ecosystem/drivers/node/ for more details
@@ -108,6 +106,18 @@ app.get('/',function(req,res){
   });
 
 app.post('/', function(req,res){
+    try {
+        // Connect to the MongoDB cluster
+        await client.connect();
+
+        // Make the appropriate DB calls
+        await  universitySearch(client,req,res);
+
+    } catch (e) {
+        console.error(e);
+    } finally {
+        await client.close();
+    }
     universitySearch(req,res);
 });
 
