@@ -40,7 +40,7 @@ async function universitySearch(req,res){
      * See https://docs.mongodb.com/ecosystem/drivers/node/ for more details
      */
 
-    let questionToSearch = req.queryResult.queryText;
+    let questionToSearch = req.responseID.queryResult;
 
     try {
         // Connect to the MongoDB cluster
@@ -102,6 +102,7 @@ async function universitySearch(req,res){
 
     } catch (e) {
         console.error(e);
+        next(err);
     } finally {
         await client.close();
     }
