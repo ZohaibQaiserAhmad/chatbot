@@ -12,10 +12,6 @@ const dialogflow = require('dialogflow');
 dotenv.config()
 
 
-
-const sessionIds = new Map();
-
-
 const credentials = {
     client_email: config.GOOGLE_CLIENT_EMAIL,
     private_key: config.GOOGLE_PRIVATE_KEY,
@@ -43,7 +39,7 @@ async function universitySearch(client,req,res){
         if (err)
         {
           console.log(err);
-          return res.send({
+          res.send({
             "fulfillmentMessages": [
               {
                 "text": {
@@ -54,10 +50,11 @@ async function universitySearch(client,req,res){
               }
             ]
           });
+          client.close();
         }
         if (questionExists)
         {
-            return res.send({
+            res.send({
                 "fulfillmentMessages": [
                   {
                     "text": {
@@ -68,9 +65,10 @@ async function universitySearch(client,req,res){
                   }
                 ]
               });
+            client.close();
         }
         else {
-            return res.send({
+            res.send({
                 "fulfillmentMessages": [
                   {
                     "text": {
@@ -81,6 +79,7 @@ async function universitySearch(client,req,res){
                   }
                 ]
               });
+            client.close();
         }
       });
 
@@ -118,7 +117,7 @@ app.post('/', function(req,res){
             await client.connect();
     
             // Make the appropriate DB calls
-            await  universitySearch(client);
+            //await  universitySearch(client);
     
         } catch (e) {
             console.error(e);
