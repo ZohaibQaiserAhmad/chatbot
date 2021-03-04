@@ -6,7 +6,7 @@ bodyParser   = require('body-parser'),
 http         = require('http'),
 config       = require('./config'),
 server       = express(),
-const dotenv = require("dotenv");
+var dotenv = require("dotenv");
 const {WebhookClient} = require('dialogflow-fulfillment');
 dotenv.config()
 
