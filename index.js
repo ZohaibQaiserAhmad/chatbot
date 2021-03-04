@@ -6,8 +6,6 @@ bodyParser   = require('body-parser'),
 http         = require('http'),
 config       = require('./config'),
 server       = express(),
-UniversityQuestion = require('../API/Models/UniversityQuestion');
-var universityController = require('../API/Controllers/universityQController');
 const dotenv = require("dotenv");
 const {WebhookClient} = require('dialogflow-fulfillment');
 dotenv.config()
