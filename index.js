@@ -113,6 +113,7 @@ app.use(express.static(__dirname + '/public'));
 
  
 app.get('/',function(req,res){
+    console.dir(req.body);
     res.send('We are happy to see you using Chat Bot Webhook');
   });
 
