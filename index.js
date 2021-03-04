@@ -17,6 +17,8 @@ const uri = config.SERVER_URL;
 const {MongoClient} = require('mongodb');
 const client = new MongoClient(uri);
 
+
+
 const sessionIds = new Map();
 
 
@@ -103,8 +105,9 @@ const dialogflowFulfillment = (request, response) => {
 }
 
 //Here we are configuring express to use body-parser as middle-ware.
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(express.static(__dirname + '/public'));
 
 
 
