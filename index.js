@@ -121,6 +121,8 @@ app.post('/', function(req,res){
           {
             "text": {
               "text": [
+                "Text response from webhook",
+                "Text response from webhook",
                 "Text response from webhook"
               ]
             }
