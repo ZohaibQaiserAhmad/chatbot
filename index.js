@@ -12,7 +12,7 @@ const dialogflow = require('dialogflow');
 dotenv.config()
 
 //connect
-const uri = config.SERVER_URL;
+const uri = "mongodb+srv://ebizdom:VL93iD4V26A3XUJC@cluster0.th7ff.mongodb.net/store?retryWrites=true&w=majority";
 const {MongoClient} = require('mongodb');
 const { exit } = require('process');
 const client = new MongoClient(uri);
