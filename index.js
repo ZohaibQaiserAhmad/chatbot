@@ -17,7 +17,7 @@ const {MongoClient} = require('mongodb');
 const client = new MongoClient(uri);
 
 MongoClient.connect(uri, function(err, db) {
-
+});
 
 const sessionIds = new Map();
 
@@ -89,8 +89,6 @@ async function universitySearch(req,res){
               });
         }
       });
-    
-    db.close();
 
     
 }
@@ -120,6 +118,3 @@ app.listen((process.env.PORT || 3000), function () {
 });
 
 
-
-
-});
