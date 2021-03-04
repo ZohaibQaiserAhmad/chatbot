@@ -11,11 +11,7 @@ const {WebhookClient} = require('dialogflow-fulfillment');
 const dialogflow = require('dialogflow');
 dotenv.config()
 
-//connect
-const uri = "mongodb+srv://ebizdom:VL93iD4V26A3XUJC@cluster0.th7ff.mongodb.net/store?retryWrites=true&w=majority";
-const {MongoClient} = require('mongodb');
-const { exit } = require('process');
-const client = new MongoClient(uri);
+
 
 
 
@@ -35,6 +31,7 @@ const sessionClient = new dialogflow.SessionsClient(
 );
 
 
+
 async function universitySearch(req,res){
     /**
      * Connection URI. Update <username>, <password>, and <your-cluster-url> to reflect your cluster.
@@ -42,7 +39,12 @@ async function universitySearch(req,res){
      */
 
     let questionToSearch = req.body.queryResult.queryText;
-  
+
+    //connect
+    const uri = "mongodb+srv://ebizdom:VL93iD4V26A3XUJC@cluster0.th7ff.mongodb.net/store?retryWrites=true&w=majority";
+    const {MongoClient} = require('mongodb');
+    const client = new MongoClient(uri);
+    
 
     client.connect(() => {
         
