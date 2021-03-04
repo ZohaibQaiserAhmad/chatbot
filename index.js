@@ -103,29 +103,31 @@ app.get('/',function(req,res){
 
 app.post('/', function(req,res){
 
-    async function start(){
+    async function main(){
+        /**
+         * Connection URI. Update <username>, <password>, and <your-cluster-url> to reflect your cluster.
+         * See https://docs.mongodb.com/ecosystem/drivers/node/ for more details
+         */
+        const uri = "mongodb+srv://ebizdom:VL93iD4V26A3XUJC@cluster0.th7ff.mongodb.net/store?retryWrites=true&w=majority";
+    
+        const {MongoClient} = require('mongodb');
+        const client = new MongoClient(uri);
+    
         try {
-
-            //connect
-            const uri = "mongodb+srv://ebizdom:VL93iD4V26A3XUJC@cluster0.th7ff.mongodb.net/store?retryWrites=true&w=majority";
-            const {MongoClient} = require('mongodb');
-            const client = new MongoClient(uri);
-
             // Connect to the MongoDB cluster
             await client.connect();
-
+    
             // Make the appropriate DB calls
-            await  universitySearch(client,req,res);
-
+            await  listDatabases(client);
+    
         } catch (e) {
             console.error(e);
         } finally {
             await client.close();
         }
-       
     }
+    main().catch(console.error);
 
-    start();
 });
 
 
