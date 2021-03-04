@@ -42,7 +42,7 @@ async function universitySearch(req,res){
      */
 
     let questionToSearch = req;
-    res.send(req.queryResult);
+    res.send(SON.parse(req));
     exit(0);
 
     client.connect(() => {
