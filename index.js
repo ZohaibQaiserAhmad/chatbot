@@ -82,7 +82,7 @@ const dialogflowFulfillment = (request, response) => {
 
     let intentMap = new Map();
     intentMap.set("Default Welcome Intent", sayHello)
-    agent.handleRequest(intentMap)
+    agent.handleRequest(intentHandler);
 
 }
 
