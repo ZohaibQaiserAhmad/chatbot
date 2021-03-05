@@ -102,7 +102,7 @@ app.get('/',function(req,res){
 
 app.post('/', function(req,res){
 
-    main().catch(console.error);
+    main();
 
 });
 
@@ -149,5 +149,3 @@ async function listDatabases(client){
                           client.close();
                         });
 };
-
-main().catch(console.error);
