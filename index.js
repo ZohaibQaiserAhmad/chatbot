@@ -81,6 +81,7 @@ app.use(bodyParser.json());
 
 
 
+
  
 app.get('/',function(req,res){
     console.dir(req.body);
@@ -104,18 +105,13 @@ async function main(req,res){
    * Connection URI. Update <username>, <password>, and <your-cluster-url> to reflect your cluster.
    * See https://docs.mongodb.com/ecosystem/drivers/node/ for more details
    */
-  const uri = "mongodb+srv://ebizdom:VL93iD4V26A3XUJC@cluster0.th7ff.mongodb.net/store?retryWrites=true&w=majority";
 
   const {MongoClient} = require('mongodb');
-  const client = new MongoClient(process.env.MONGODB_URI || uri,{useNewUrlParser: true});
+  const client = new MongoClient(process.env.MONGODB_URI,{useNewUrlParser: true});
 
   try {
       // Connect to the MongoDB cluster
-      await client.connect().then(() => {
-        console.log("Connected to Database");
-        }).catch((err) => {
-            console.log("Not Connected to Database ERROR! ", err);
-        });
+      await client.connect();
 
       // Make the appropriate DB calls
       await  universitySearch(client,req,res);
