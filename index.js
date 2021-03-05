@@ -15,72 +15,71 @@ dotenv.config()
 
 
 
-async function universitySearch(client,req,res){
-    /**
-     * Connection URI. Update <username>, <password>, and <your-cluster-url> to reflect your cluster.
-     * See https://docs.mongodb.com/ecosystem/drivers/node/ for more details
-     */
+// async function universitySearch(client,req,res){
+//     /**
+//      * Connection URI. Update <username>, <password>, and <your-cluster-url> to reflect your cluster.
+//      * See https://docs.mongodb.com/ecosystem/drivers/node/ for more details
+//      */
 
-    let questionToSearch = req.body.queryResult.queryText;
-    await client.db("Store").collection("University")
-        .findOne({question:questionToSearch},function(err,questionExists)
-      {
-        if (err)
-        {
-          console.log(err);
-          res.send({
-            "fulfillmentMessages": [
-              {
-                "text": {
-                  "text": [
-                    "Issue with Bot..."
-                  ]
-                }
-              }
-            ]
-          });
-          client.close();
-        }
-        if (questionExists)
-        {
-            res.send({
-                "fulfillmentMessages": [
-                  {
-                    "text": {
-                      "text": [
-                        "At " + questionExists.UniversityId + " The answer is : " + questionExists.answer
-                      ]
-                    }
-                  }
-                ]
-              });
-            client.close();
-        }
-        else {
-            res.send({
-                "fulfillmentMessages": [
-                  {
-                    "text": {
-                      "text": [
-                        "We currently do not have that question in our database...."
-                      ]
-                    }
-                  }
-                ]
-              });
-            client.close();
-        }
-      });
+//     let questionToSearch = req.body.queryResult.queryText;
+//     await client.db("Store").collection("University")
+//         .findOne({question:questionToSearch},function(err,questionExists)
+//       {
+//         if (err)
+//         {
+//           console.log(err);
+//           res.send({
+//             "fulfillmentMessages": [
+//               {
+//                 "text": {
+//                   "text": [
+//                     "Issue with Bot..."
+//                   ]
+//                 }
+//               }
+//             ]
+//           });
+//           client.close();
+//         }
+//         if (questionExists)
+//         {
+//             res.send({
+//                 "fulfillmentMessages": [
+//                   {
+//                     "text": {
+//                       "text": [
+//                         "At " + questionExists.UniversityId + " The answer is : " + questionExists.answer
+//                       ]
+//                     }
+//                   }
+//                 ]
+//               });
+//             client.close();
+//         }
+//         else {
+//             res.send({
+//                 "fulfillmentMessages": [
+//                   {
+//                     "text": {
+//                       "text": [
+//                         "We currently do not have that question in our database...."
+//                       ]
+//                     }
+//                   }
+//                 ]
+//               });
+//             client.close();
+//         }
+//       });
 
     
-}
+// }
 
 
 
 //Here we are configuring express to use body-parser as middle-ware.
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(express.static(__dirname + '/public'));
 
 
 
