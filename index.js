@@ -109,7 +109,7 @@ async function main(){
   const uri = "mongodb+srv://ebizdom:VL93iD4V26A3XUJC@cluster0.th7ff.mongodb.net/store?retryWrites=true&w=majority";
 
   const {MongoClient} = require('mongodb');
-  const client = new MongoClient(process.env.MONGODB_URI);
+  const client = new MongoClient(process.env.MONGODB_URI,{useNewUrlParser: true});
 
   try {
       // Connect to the MongoDB cluster
