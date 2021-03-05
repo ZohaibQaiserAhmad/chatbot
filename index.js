@@ -13,67 +13,65 @@ dotenv.config()
 
 
 
-
-
-// async function universitySearch(client,req,res){
-//     /**
-//      * Connection URI. Update <username>, <password>, and <your-cluster-url> to reflect your cluster.
-//      * See https://docs.mongodb.com/ecosystem/drivers/node/ for more details
-//      */
-
-//     let questionToSearch = req.body.queryResult.queryText;
-//     await client.db("Store").collection("University")
-//         .findOne({question:questionToSearch},function(err,questionExists)
-//       {
-//         if (err)
-//         {
-//           console.log(err);
-//           res.send({
-//             "fulfillmentMessages": [
-//               {
-//                 "text": {
-//                   "text": [
-//                     "Issue with Bot..."
-//                   ]
-//                 }
-//               }
-//             ]
-//           });
-//           client.close();
-//         }
-//         if (questionExists)
-//         {
-//             res.send({
-//                 "fulfillmentMessages": [
-//                   {
-//                     "text": {
-//                       "text": [
-//                         "At " + questionExists.UniversityId + " The answer is : " + questionExists.answer
-//                       ]
-//                     }
-//                   }
-//                 ]
-//               });
-//             client.close();
-//         }
-//         else {
-//             res.send({
-//                 "fulfillmentMessages": [
-//                   {
-//                     "text": {
-//                       "text": [
-//                         "We currently do not have that question in our database...."
-//                       ]
-//                     }
-//                   }
-//                 ]
-//               });
-//             client.close();
-//         }
-//       });
+async function universitySearch(client,req,res){
+    /**
+     * Connection URI. Update <username>, <password>, and <your-cluster-url> to reflect your cluster.
+     * See https://docs.mongodb.com/ecosystem/drivers/node/ for more details
+     */
+    
+    let questionToSearch = req.body.queryResult.queryText;
+    await client.db("Store").collection("University")
+        .findOne({question:questionToSearch},function(err,questionExists)
+      {
+        if (err)
+        {
+          console.log(err);
+          res.send({
+            "fulfillmentMessages": [
+              {
+                "text": {
+                  "text": [
+                    "Issue with Bot..."
+                  ]
+                }
+              }
+            ]
+          });
+          client.close();
+        }
+        if (questionExists)
+        {
+            res.send({
+                "fulfillmentMessages": [
+                  {
+                    "text": {
+                      "text": [
+                        "At " + questionExists.UniversityId + " The answer is : " + questionExists.answer
+                      ]
+                    }
+                  }
+                ]
+              });
+            client.close();
+        }
+        else {
+            res.send({
+                "fulfillmentMessages": [
+                  {
+                    "text": {
+                      "text": [
+                        "We currently do not have that question in our database...."
+                      ]
+                    }
+                  }
+                ]
+              });
+            client.close();
+        }
+      });
 
     
-// }
+}
 
 
 
@@ -90,7 +88,7 @@ app.get('/',function(req,res){
 
 app.post('/', function(req,res){
 
-    main().catch(console.error);
+    main(req,res).catch(console.error);
 
 });
 
@@ -101,26 +99,24 @@ app.listen((process.env.PORT || 3000), function () {
 });
 
 
-async function main(){
+async function main(req,res){
   /**
    * Connection URI. Update <username>, <password>, and <your-cluster-url> to reflect your cluster.
    * See https://docs.mongodb.com/ecosystem/drivers/node/ for more details
    */
   const uri = "mongodb+srv://ebizdom:VL93iD4V26A3XUJC@cluster0.th7ff.mongodb.net/store?retryWrites=true&w=majority";
 
-  const {MongoClient} = require('mongodb');
-  const client = new MongoClient(process.env.MONGODB_URI,{useNewUrlParser: true});
+  mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true});
+  const conn = mongoose.connection; 
 
   try {
       // Connect to the MongoDB cluster
-      await client.connect().then(() => {
-        console.log("Connected to Database");
-        }).catch((err) => {
-            console.log("Not Connected to Database ERROR! ", err);
-        });
+      mongoose.connection.once('open', () => { console.log('MongoDB Connected'); });
+      mongoose.connection.on('error', (err) => { console.log('MongoDB connection error: ', err); }); 
+
 
       // Make the appropriate DB calls
-      //await  universitySearch(client);
+      await  universitySearch(client,req,res);
 
   } catch (e) {
       console.error(e);
