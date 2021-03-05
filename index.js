@@ -105,7 +105,7 @@ async function main(req,res){
    */
 
   const {MongoClient} = require('mongodb');
-  const client = new MongoClient(process.env.MONGODB_URI,{ useNewUrlParser: true, useUnifiedTopology: true });
+  const client = new MongoClient("mongodb+srv://ebizdom:VL93iD4V26A3XUJC@cluster0.th7ff.mongodb.net/store?retryWrites=true&w=majority",{ useNewUrlParser: true, useUnifiedTopology: true });
 
   try {
       // Connect to the MongoDB cluster
