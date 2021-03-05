@@ -92,7 +92,7 @@ app.post('/', function(req,res){
 });
 
 
-app.listen((process.env.PORT || 3000), function () {
+app.listen((process.env.PORT), function () {
     console.log("Server is up and listening on port");
     
 });
@@ -105,7 +105,7 @@ async function main(req,res){
    */
 
   const {MongoClient} = require('mongodb');
-  const client = new MongoClient(process.env.MONGODB_URI,{ useNewUrlParser: true, useUnifiedTopology: false });
+  const client = new MongoClient(process.env.MONGODB_URI,{ useNewUrlParser: true, useUnifiedTopology: true });
 
   try {
       // Connect to the MongoDB cluster
