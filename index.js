@@ -132,7 +132,9 @@ async function main(){
 
   } catch (e) {
       console.error(e);
-  } 
+  } finally {
+      await client.close();
+  }
 }
 
 async function listDatabases(client){
