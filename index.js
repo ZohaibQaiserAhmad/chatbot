@@ -12,17 +12,6 @@ const dialogflow = require('dialogflow');
 dotenv.config()
 
 
-const credentials = {
-    client_email: config.GOOGLE_CLIENT_EMAIL,
-    private_key: config.GOOGLE_PRIVATE_KEY,
-};
-
-const sessionClient = new dialogflow.SessionsClient(
-	{
-		projectId: config.GOOGLE_PROJECT_ID,
-		credentials
-	}
-);
 
 
 
