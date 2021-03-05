@@ -83,9 +83,7 @@ app.use(bodyParser.json());
 
 
  
-app.get('/',function(req,res){
-    console.dir(req.body);
-  });
+
 
 app.post('/', function(req,res){
 
