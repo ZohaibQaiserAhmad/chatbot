@@ -83,7 +83,7 @@ app.use(bodyParser.json());
 
 
  
-
+app.get('/',function(req,res){});
 
 app.post('/', function(req,res){
 
@@ -116,7 +116,5 @@ async function main(req,res){
 
   } catch (e) {
       console.error(e);
-  } finally {
-      await client.close();
   }
 }
