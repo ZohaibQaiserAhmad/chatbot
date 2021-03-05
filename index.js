@@ -102,7 +102,7 @@ app.get('/',function(req,res){
 
 app.post('/', function(req,res){
 
-    main();
+    main().catch(console.error);
 
 });
 
@@ -125,10 +125,14 @@ async function main(){
 
   try {
       // Connect to the MongoDB cluster
-      await client.connect();
+      await client.connect().then(() => {
+        console.log("Connected to Database");
+        }).catch((err) => {
+            console.log("Not Connected to Database ERROR! ", err);
+        });
 
       // Make the appropriate DB calls
-      await  listDatabases(client);
+      //await  universitySearch(client);
 
   } catch (e) {
       console.error(e);
@@ -136,16 +140,3 @@ async function main(){
       await client.close();
   }
 }
-
-async function listDatabases(client){
-  //databasesList = await client.db().admin().listDatabases();
-  //console.log("Databases:");
-  //databasesList.databases.forEach(db => console.log(` - ${db.name}`));
-  result = await client.db("Store").collection("University")
-                      .find({ }).
-                      toArray(function(err, result) {
-                          if (err) throw err;
-                          console.log(result);
-                          client.close();
-                        });
-};
