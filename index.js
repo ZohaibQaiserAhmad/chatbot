@@ -107,7 +107,7 @@ async function main(req,res){
   const uri = "mongodb+srv://ebizdom:VL93iD4V26A3XUJC@cluster0.th7ff.mongodb.net/store?retryWrites=true&w=majority";
 
   mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true});
-  const conn = mongoose.connection; 
+  const client = mongoose.connection; 
 
   try {
       // Connect to the MongoDB cluster
